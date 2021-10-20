@@ -1,0 +1,14 @@
+{
+  "name": "2-natours",
+  "version": "1.0.0",
+  "description": "course project by jonas Natours",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Enes Karakas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
