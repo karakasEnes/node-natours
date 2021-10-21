@@ -4,8 +4,8 @@
   "description": "course project by jonas Natours",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Enes Karakas",
   "license": "ISC",
