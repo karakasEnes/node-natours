@@ -35,6 +35,23 @@ app.get("/api/v1/tours/:id", (req, res) => {
   });
 });
 
+app.patch("/api/v1/tours/:id", (req, res) => {
+  const id = req.params.id * 1;
+  const tour = toursData.find((el) => el.id === id);
+
+  if (!tour) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Cannot get tour!",
+    });
+  }
+
+  res.status(200).json({
+    status: "success",
+    tour: "Updated tour here",
+  });
+});
+
 app.post("/api/v1/tours", (req, res) => {
   const tourID = toursData[toursData.length - 1].id + 1;
   const newTour = Object.assign({ id: tourID }, req.body);
