@@ -8,7 +8,7 @@ const toursData = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-app.get("/api/v1/tours", (req, res) => {
+const getAllTours = (req, res) => {
   res.status(200).json({
     status: "success",
     result: toursData.length,
@@ -16,9 +16,9 @@ app.get("/api/v1/tours", (req, res) => {
       tours: toursData,
     },
   });
-});
+};
 
-app.get("/api/v1/tours/:id", (req, res) => {
+const getTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = toursData.find((el) => el.id === id);
 
@@ -33,9 +33,9 @@ app.get("/api/v1/tours/:id", (req, res) => {
     status: "success",
     tour,
   });
-});
+};
 
-app.patch("/api/v1/tours/:id", (req, res) => {
+const updateTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = toursData.find((el) => el.id === id);
 
@@ -50,9 +50,9 @@ app.patch("/api/v1/tours/:id", (req, res) => {
     status: "success",
     tour: "Updated tour here",
   });
-});
+};
 
-app.delete("/api/v1/tours/:id", (req, res) => {
+const deleteTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = toursData.find((el) => el.id === id);
 
@@ -67,9 +67,9 @@ app.delete("/api/v1/tours/:id", (req, res) => {
     status: "success",
     data: null,
   });
-});
+};
 
-app.post("/api/v1/tours", (req, res) => {
+const createTour = (req, res) => {
   const tourID = toursData[toursData.length - 1].id + 1;
   const newTour = Object.assign({ id: tourID }, req.body);
   toursData.push(newTour);
@@ -82,7 +82,21 @@ app.post("/api/v1/tours", (req, res) => {
       res.status(201).send(newTour);
     }
   );
-});
+};
+
+// app.get("/api/v1/tours", getAllTours);
+// app.get("/api/v1/tours/:id", getTour);
+// app.patch("/api/v1/tours/:id", updateTour);
+// app.delete("/api/v1/tours/:id", deleteTour);
+// app.post("/api/v1/tours", createTour);
+
+app.route("/api/v1/tours").get(getAllTours).post(createTour);
+
+app
+  .route("/api/v1/tours/:id")
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 app.get("/", (req, res) => {
   res.status(200).send("get works");

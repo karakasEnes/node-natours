@@ -142,5 +142,11 @@
     "name": "This is smart Tour",
     "duration": 5,
     "difficulty": "hard"
+  },
+  {
+    "id": 13,
+    "name": "This is smart Tour",
+    "duration": 5,
+    "difficulty": "hard"
   }
 ]
