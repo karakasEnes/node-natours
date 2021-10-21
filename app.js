@@ -8,6 +8,18 @@ const toursData = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
+app.use((req, res, next) => {
+  console.log("hello from global middleWare");
+  next();
+});
+
+app.use((req, res, next) => {
+  console.log("hello from middleware of isoString");
+  const createdAt = new Date().toISOString();
+  req.isoDateString = createdAt;
+  next();
+});
+
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: "success",
@@ -30,6 +42,7 @@ const getTour = (req, res) => {
   }
 
   res.status(200).json({
+    middlewareProperty: req.isoDateString,
     status: "success",
     tour,
   });
@@ -84,12 +97,6 @@ const createTour = (req, res) => {
   );
 };
 
-// app.get("/api/v1/tours", getAllTours);
-// app.get("/api/v1/tours/:id", getTour);
-// app.patch("/api/v1/tours/:id", updateTour);
-// app.delete("/api/v1/tours/:id", deleteTour);
-// app.post("/api/v1/tours", createTour);
-
 app.route("/api/v1/tours").get(getAllTours).post(createTour);
 
 app
@@ -97,10 +104,6 @@ app
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
-
-app.get("/", (req, res) => {
-  res.status(200).send("get works");
-});
 
 const port = 3000;
 
