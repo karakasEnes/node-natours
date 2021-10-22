@@ -9,6 +9,7 @@ const userRouter = require("./routes/userRoutes");
 app.use(express.static(`${__dirname}/public`));
 
 app.use(express.json());
+
 app.use((req, res, next) => {
   console.log("hello from global middleWare");
   next();
